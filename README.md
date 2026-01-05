@@ -12,6 +12,8 @@ Le projet consiste à gérer la migration et l'extension informatique d'une entr
 
 ## Architecture et Services à Déployer
 
+<img width="1264" height="905" alt="SchemaPKTSAE303" src="https://github.com/user-attachments/assets/a6b1d822-2411-4671-b79a-cedc9dca7001" />
+
 ### Infrastructure Réseau
 
 L'infrastructure doit être segmentée en plusieurs réseaux spécifiques pour isoler et sécuriser les flux :
