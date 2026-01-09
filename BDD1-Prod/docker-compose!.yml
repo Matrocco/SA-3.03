@@ -4,7 +4,7 @@ services:
     container_name: mariadb_prod
     restart: always
     environment:
-      - MARIADB_ROOT_PASSWORD=votre_mot_de_passe_robuste
+      - MARIADB_ROOT_PASSWORD=1234
       - MARIADB_DATABASE=ma_base_prod
       - MARIADB_USER=admin_user
       - MARIADB_PASSWORD=admin_password
