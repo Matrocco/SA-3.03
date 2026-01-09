@@ -1,0 +1,4 @@
+zone "ma-societeX.fr" {
+    type master;
+    file "/etc/bind/db.ma-societeX.fr";
+};
