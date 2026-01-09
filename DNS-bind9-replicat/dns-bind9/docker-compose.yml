@@ -1,14 +1,13 @@
 services:
-  bind9:
+  bind9-slave:
     image: ubuntu/bind9:latest
-    container_name: bind9
-    environment:
-      - BIND9_USER=bind
+    container_name: bind9_slave
     ports:
       - "53:53/udp"
       - "53:53/tcp"
+    environment:
+      - BIND9_USER=bind
     volumes:
-      - ./config:/etc/bind
-      - ./cache:/var/cache/bind
-      - ./records:/var/lib/bind
+      - ./config-slave:/etc/bind
+      - ./cache-slave:/var/cache/bind
     restart: unless-stopped
