@@ -1,0 +1,5 @@
+zone "mon-entreprise.lan" {
+    type slave;
+    file "/var/cache/bind/db.mon-entreprise.lan"; # Le dossier cache est important pour les droits d'écriture
+    masters { 192.168.10.253; }; # IP du Serveur 1 (Siège)
+};

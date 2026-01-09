@@ -1,0 +1,27 @@
+acl "trusted" {
+        127.0.0.0/8;
+        192.168.10.0/24;  # VLAN Vidéo
+        192.168.20.0/24;  # VLAN Autre
+        192.168.40.0/24;  # VLAN Production
+        192.168.100.0/24; # VLAN WIFI
+};
+
+options {
+        directory "/var/cache/bind";
+
+        # Autorise les requêtes provenant uniquement de ton réseau local
+        allow-query { trusted; };
+
+        # Autorise la récursion (permet aux PC de naviguer sur Internet)
+        recursion yes;
+        allow-recursion { trusted; };
+
+        # Si le serveur ne connaît pas l'adresse, il demande à l'extérieur
+        forwarders {
+                8.8.8.8;
+                1.1.1.1;
+        };
+
+        dnssec-validation auto;
+        listen-on-v6 { any; };
+};

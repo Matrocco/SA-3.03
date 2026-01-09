@@ -1,0 +1,27 @@
+;
+; BIND data file for ma-societeX.fr
+;
+$TTL    604800
+@       IN      SOA     s1.ma-societeX.fr. admin.ma-societeX.fr. (
+                              3         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+
+; --- Serveurs de noms (NS) ---
+@       IN      NS      s1.ma-societeX.fr.
+
+; --- Enregistrements de Mail (MX) ---
+; Le chiffre (10) est la priorité. Plus il est bas, plus il est prioritaire.
+@       IN      MX  10  mail.ma-societeX.fr.
+
+; --- Adresses IP des hôtes (A) ---
+s1     IN      A       192.168.10.253    ; IP de ce serveur DNS
+mail    IN      A       192.168.10.253   ; IP de votre serveur de mail
+www     IN      A       192.168.10.253    ; IP de votre site web
+
+; --- Sécurité Mail (Optionnel mais recommandé) ---
+; SPF : Autorise l'IP du serveur mail à envoyer des messages au nom du domaine
+@       IN      TXT     "v=spf1 ip4:192.168.1.20 -all"
