@@ -1,0 +1,20 @@
+services:
+  db:
+    image: mariadb:latest
+    container_name: mariadb_prod
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD=votre_mot_de_passe_robuste
+      - MARIADB_DATABASE=ma_base_prod
+      - MARIADB_USER=admin_user
+      - MARIADB_PASSWORD=admin_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data:/var/lib/mysql
+    networks:
+      - bdd-network
+
+networks:
+  bdd-network:
+    driver: bridge
