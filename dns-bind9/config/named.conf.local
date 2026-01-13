@@ -1,6 +1,6 @@
-zone "mon-entreprise.lan" {
+zone "s1.ma-societeX.fr" {
     type master;
-    file "/etc/bind/db.mon-entreprise.lan";
+    file "/etc/bind/db.ma-societeX.fr";
     allow-transfer { 192.168.10.252; }; # IP du Serveur 2 (Succursale)
     also-notify { 192.168.10.252; };    # Prévient le Slave dès qu'une modif est faite
 };
