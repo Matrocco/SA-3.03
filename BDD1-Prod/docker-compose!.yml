@@ -4,10 +4,10 @@ services:
     container_name: mariadb_prod
     restart: always
     environment:
-      - MARIADB_ROOT_PASSWORD=1234
-      - MARIADB_DATABASE=ma_base_prod
+      - MARIADB_ROOT_PASSWORD=progtr00
+      - MARIADB_DATABASE=db-prod
       - MARIADB_USER=admin_user
-      - MARIADB_PASSWORD=admin_password
+      - MARIADB_PASSWORD=progtr01
     ports:
       - "3306:3306"
     volumes:
