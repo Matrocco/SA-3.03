@@ -1,0 +1,10 @@
+services:
+  squid:
+    image: ubuntu/squid:latest
+    container_name: proxy_squid
+    ports:
+      - "3128:3128" # Expose le port 3128 du conteneur sur le port 3128 de votre PC
+    volumes:
+      - ./squid.conf:/etc/squid/squid.conf:ro # On injecte notre config (lecture seule)
+      - ./logs:/var/log/squid # (Optionnel) Pour voir les logs d'accès depuis votre dossier
+    restart: always
