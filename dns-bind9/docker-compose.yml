@@ -11,4 +11,9 @@ services:
       - ./config:/etc/bind
       - ./cache:/var/cache/bind
       - ./records:/var/lib/bind
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://127.0.0.1:514"
+        tag: "Serv-DNS"
     restart: unless-stopped

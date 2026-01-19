@@ -13,3 +13,8 @@ services:
       - ./data:/home/admin/upload
     # Format de la commande : utilisateur:motdepasse:UID
     command: admin:progtr00:1001
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://127.0.0.1:514"
+        tag: "Serv-SFTP"
