@@ -52,27 +52,37 @@ Le déploiement s'appuie sur un domaine **societeX.pepiniere.rt** et comprend:
 
 *  **Filtrage et DNS** : Un proxy au siège pour tout le trafic extérieur et un DNS principal avec son réplicat en succursale.
 
-### Tableau d'adressage :
-| Endroit | Machine | VLAN | IP | Masque | Gateway | DNS | Plage DHCP |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Zone / Fonction | Réseau       | Masque                | VLAN ID | Passerelle (Gateway) | Description                     |
-| :---            | :---         | :---                  | :---:   | :---:                | :---                            |
-| **ADMIN** | 192.168.10.0 | /24 (255.255.255.0)   | 10      | .254                 | Gestion des équipements         |
-| **PRODUCTION** | 192.168.20.0 | /24 (255.255.255.0)   | 20      | .254                 | Postes de l'atelier             |
-| **PERSONNEL** | 192.168.30.0 | /24 (255.255.255.0)   | 30      | .254                 | Bureautique employés            |
-| **VIDEO** | 192.168.40.0 | /24 (255.255.255.0)   | 40      | .254                 | TV & Serveur Local (Réplicat)   |
-| **WIFI** | 192.168.50.0 | /24 (255.255.255.0)   | 50      | .254                 | Borne Wifi Succursale           |
-|  |  |  |  |  |  |  |  |
-| Succursale | Routeur | X | 10.X.2.1 | /8 | X | X | X |
-| Succursale | Routeur 2 | Trunk | 192.168.X.254 | /24 | X | X | X |
-| Succursale | PC5 | 10 Vidéo | 192.168.10.101 | /24 | 192.168.10.254 | 192.168.10.253 | X |
-| Succursale | Serveur 2 | 10 Vidéo | 192.168.10.252 | /24 | 192.168.10.254 | Réplicat | X |
-| Succursale | PC6 | 20 Vidéo | 192.168.20.101 | /24 | 192.168.20.254 | 192.168.10.253 | X |
-| Succursale | PC7 | 30 Vidéo | 192.168.30.101 | /24 | 192.168.30.254 | 192.168.10.253 | X |
-| Succursale | PC8 | 40 Prod | 192.168.40.101 | /24 | 192.168.40.254 | 192.168.10.253 | X |
-| Succursale | BDD 2 | 40 Prod | 192.168.60.252 | /24 | 192.168.40.254 | X | X |
-| Succursale | AP 2 | 100 WIFI | 192.168.100.101 | /24 | 192.168.100.254 | X | X |
+# Tableau d'Adressage Maquette Réseau
 
+## 1. Site Succursale (Gauche)
+
+| Zone / VLAN | ID VLAN | Adresse Réseau   | Masque (CIDR) | Passerelle (Gateway) |
+| :---        | :---:   | :---             | :---:         | :---                 |
+| **ADMIN** | 10      | `192.168.10.0`   | /24           | `192.168.10.1`       |
+| **PROD** | 20      | `192.168.20.0`   | /24           | `192.168.20.1`       |
+| **PERSO** | 30      | `192.168.30.0`   | /24           | `192.168.30.1`       |
+| **VIDEO** | 40      | `192.168.40.0`   | /24           | `192.168.40.1`       |
+| **GUEST** | 50      | `192.168.50.0`   | /24           | `192.168.50.1`       |
+| **SERVEUR** | 60      | `192.168.60.0`   | /24           | `192.168.60.1`       |
+
+## 2. Site Siège (Droite)
+
+| Zone / VLAN | ID VLAN | Adresse Réseau   | Masque (CIDR) | Passerelle (Gateway) |
+| :---        | :---:   | :---             | :---:         | :---                 |
+| **PROD** | 70      | `192.168.70.0`   | /24           | `192.168.70.1`       |
+| **PERSO** | 80      | `192.168.80.0`   | /24           | `192.168.80.1`       |
+| **VIDEO** | 90      | `192.168.90.0`   | /24           | `192.168.90.1`       |
+| **GUEST** | 100     | `192.168.100.0`  | /24           | `192.168.100.1`      |
+| **SERVEUR** | 110     | `192.168.110.0`  | /24           | `192.168.110.1`      |
+| **ADMIN** | 120     | `192.168.120.0`  | /24           | `192.168.120.1`      |
+
+## 3. Services Hébergés (Détail Serveurs)
+
+| Site           | Nom Serveur       | IP (Statique)    | Rôles / Services                                  |
+| :---           | :---              | :---             | :---                                              |
+| **Succursale** | `Replicat - DNS`  | `192.168.60.10`  | DNS Secondaire/Réplicat                           |
+| **Succursale** | `Windows Serveur` | `192.168.60.11`  | Active Directory, Fichiers                        |
+| **Siège** | `DOCKER`          | `192.168.110.10` | Conteneurs : DNS, SYSLOG, Proxy, Mail, WEB, BDD   |
 ---
 
 ## Organisation et Travail à Réaliser
