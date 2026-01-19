@@ -7,4 +7,6 @@ services:
     volumes:
       - ./squid.conf:/etc/squid/squid.conf:ro # On injecte notre config (lecture seule)
       - ./logs:/var/log/squid # (Optionnel) Pour voir les logs d'accès depuis votre dossier
+    dns:
+      - 172.18.26.101 # L'IP du DNS de l'école (si le 8.8.8.8 de Google est bloqué)
     restart: always
