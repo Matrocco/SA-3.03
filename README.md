@@ -55,15 +55,13 @@ Le déploiement s'appuie sur un domaine **societeX.pepiniere.rt** et comprend:
 ### Tableau d'adressage :
 | Endroit | Machine | VLAN | IP | Masque | Gateway | DNS | Plage DHCP |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Siège | Routeur | X | 10.X.1.1 | /8 | X | X | X |
-| Siège | Routeur | Trunk | 192.168.X.254 | /24 | X | X | X |
-| Siège | PC1 | 10 Vidéo | 192.168.10.100 | /24 | 192.168.10.254 | 192.168.10.253 | X |
-| Siège | Serveur 1 | 10 Vidéo | 192.168.10.253 | /24 | 192.168.10.254 | Source | 192.168.X.100-200 |
-| Siège | PC2 | 20 Vidéo | 192.168.20.100 | /24 | 192.168.20.254 | 192.168.10.253 | X |
-| Siège | PC3 | 30 Vidéo | 192.168.30.100 | /24 | 192.168.30.254 | 192.168.10.253 | X |
-| Siège | PC4 | 40 Prod | 192.168.40.100 | /24 | 192.168.40.254 | 192.168.10.253 | X |
-| Siège | BDD 1 | 40 Prod | 192.168.60.253 | /24 | 192.168.40.254 | X | X |
-| Siège | AP 1 | 100 WIFI | 192.168.100.100 | /24 | 192.168.100.254 | X | X |
+| Zone / Fonction | Réseau       | Masque                | VLAN ID | Passerelle (Gateway) | Description                     |
+| :---            | :---         | :---                  | :---:   | :---:                | :---                            |
+| **ADMIN** | 192.168.10.0 | /24 (255.255.255.0)   | 10      | .254                 | Gestion des équipements         |
+| **PRODUCTION** | 192.168.20.0 | /24 (255.255.255.0)   | 20      | .254                 | Postes de l'atelier             |
+| **PERSONNEL** | 192.168.30.0 | /24 (255.255.255.0)   | 30      | .254                 | Bureautique employés            |
+| **VIDEO** | 192.168.40.0 | /24 (255.255.255.0)   | 40      | .254                 | TV & Serveur Local (Réplicat)   |
+| **WIFI** | 192.168.50.0 | /24 (255.255.255.0)   | 50      | .254                 | Borne Wifi Succursale           |
 |  |  |  |  |  |  |  |  |
 | Succursale | Routeur | X | 10.X.2.1 | /8 | X | X | X |
 | Succursale | Routeur 2 | Trunk | 192.168.X.254 | /24 | X | X | X |
