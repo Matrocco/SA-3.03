@@ -1,0 +1,24 @@
+; BIND data file for ma-societeX.fr
+$TTL    604800
+@       IN      SOA     s1.ma-societeX.fr. admin.ma-societeX.fr. (
+                              2026011301  ; Serial (Updated to YYYYMMDD+Rev)
+                              604800      ; Refresh
+                              86400       ; Retry
+                              2419200     ; Expire
+                              604800 )    ; Negative Cache TTL
+;
+
+; --- Serveurs de noms (NS) ---
+@       IN      NS      s1.ma-societeX.fr.
+
+; --- Enregistrements de Mail (MX) ---
+@       IN      MX  10  mail.ma-societeX.fr.
+
+; --- Adresses IP des hôtes (A) ---
+s1      IN      A       192.168.10.253
+mail    IN      A       192.168.10.253
+www     IN      A       192.168.10.253
+
+; --- Sécurité Mail (SPF Correction) ---
+; CORRECTION: Updated IP to match the 'mail' A record above (192.168.10.253)
+@       IN      TXT     "v=spf1 ip4:192.168.10.253 -all"

@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  syslog-ng:
+    image: balabit/syslog-ng:latest
+    container_name: mon-serveur-syslog
+    restart: unless-stopped
+    ports:
+      - "514:514/udp"  # Port standard UDP
+      - "601:601/tcp"  # Port standard TCP (souvent 601 ou 514)
+    volumes:
+      - ./logs:/var/log/syslog-ng  # Dossier où les logs seront stockés sur l'hôte
+      - ./syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf # Votre fichier de config (optionnel mais recommandé)
+    environment:
+      - TZ=Europe/Paris # Pour avoir la bonne heure dans les logs
+
+  bind9:
+    image: ubuntu/bind9:latest
+    container_name: bind9
+    environment:
+      - BIND9_USER=bind
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+    volumes:
+      - ./config:/etc/bind
+      - ./cache:/var/cache/bind
+      - ./records:/var/lib/bind
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://127.0.0.1:514"
+        tag: "Serv-DNS"
+    restart: unless-stopped
+
+  sftp-server:
+      image: atmoz/sftp
+      container_name: mon-serveur-sftp
+      restart: always
+      ports:
+        # J'ai mis 2222 en externe car le port 22 est souvent déjà pris par ton PC/Serveur pour sa propre gestion
+        - "2222:22"
+      volumes:
+        # Tes fichiers arriveront dans le dossier ./data/upload
+        - ./data:/home/admin/upload
+      # Format de la commande : utilisateur:motdepasse:UID
+      command: admin:progtr00:1001
+      logging:
+        driver: syslog
+        options:
+          syslog-address: "udp://127.0.0.1:514"
+          tag: "Serv-SFTP"
+
+  squid:
+    image: ubuntu/squid:latest
+    container_name: proxy_squid
+    ports:
+      - "3128:3128" # Expose le port 3128 du conteneur sur le port 3128 de votre PC
+    volumes:
+      - ./squid.conf:/etc/squid/squid.conf:ro # On injecte notre config (lecture seule)
+      - ./logs:/var/log/squid # (Optionnel) Pour voir les logs d'accès depuis votre dossier
+    dns:
+      - 172.18.26.101 # L'IP du DNS de l'école (si le 8.8.8.8 de Google est bloqué)
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://127.0.0.1:514"
+        tag: "Serv-Proxy"
+    restart: always
