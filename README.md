@@ -59,31 +59,31 @@ Le déploiement s'appuie sur un domaine **societeX.pepiniere.rt** et comprend:
 
 | Zone / VLAN | ID VLAN | Adresse Réseau   | Masque (CIDR) | Passerelle (Gateway) |
 | :---        | :---:   | :---             | :---:         | :---                 |
-| **ADMIN** | 10      | `192.168.10.0`   | /24           | `192.168.10.1`       |
-| **PROD** | 20      | `192.168.20.0`   | /24           | `192.168.20.1`       |
-| **PERSO** | 30      | `192.168.30.0`   | /24           | `192.168.30.1`       |
-| **VIDEO** | 40      | `192.168.40.0`   | /24           | `192.168.40.1`       |
-| **GUEST** | 50      | `192.168.50.0`   | /24           | `192.168.50.1`       |
-| **SERVEUR** | 60      | `192.168.60.0`   | /24           | `192.168.60.1`       |
+| **ADMIN** | 10      | `192.168.10.0`   | /24           | `192.168.10.254`       |
+| **PROD** | 20      | `192.168.20.0`   | /24           | `192.168.20.254`       |
+| **PERSO** | 30      | `192.168.30.0`   | /24           | `192.168.30.254`       |
+| **VIDEO** | 40      | `192.168.40.0`   | /24           | `192.168.40.254`       |
+| **GUEST** | 50      | `192.168.50.0`   | /24           | `192.168.50.254`       |
+| **SERVEUR** | 60      | `192.168.60.0`   | /24           | `192.168.60.254`       |
 
 ## 2. Site Siège (Droite)
 
 | Zone / VLAN | ID VLAN | Adresse Réseau   | Masque (CIDR) | Passerelle (Gateway) |
 | :---        | :---:   | :---             | :---:         | :---                 |
-| **PROD** | 70      | `192.168.70.0`   | /24           | `192.168.70.1`       |
-| **PERSO** | 80      | `192.168.80.0`   | /24           | `192.168.80.1`       |
-| **VIDEO** | 90      | `192.168.90.0`   | /24           | `192.168.90.1`       |
-| **GUEST** | 100     | `192.168.100.0`  | /24           | `192.168.100.1`      |
-| **SERVEUR** | 110     | `192.168.110.0`  | /24           | `192.168.110.1`      |
-| **ADMIN** | 120     | `192.168.120.0`  | /24           | `192.168.120.1`      |
+| **PROD** | 70      | `192.168.70.0`   | /24           | `192.168.70.254`       |
+| **PERSO** | 80      | `192.168.80.0`   | /24           | `192.168.80.254`       |
+| **VIDEO** | 90      | `192.168.90.0`   | /24           | `192.168.90.254`      |
+| **GUEST** | 100     | `192.168.100.0`  | /24           | `192.168.100.254`      |
+| **SERVEUR** | 110     | `192.168.110.0`  | /24           | `192.168.110.254`      |
+| **ADMIN** | 120     | `192.168.120.0`  | /24           | `192.168.120.254`      |
 
 ## 3. Services Hébergés (Détail Serveurs)
 
 | Site           | Nom Serveur       | IP (Statique)    | Rôles / Services                                  |
 | :---           | :---              | :---             | :---                                              |
-| **Succursale** | `Replicat - DNS`  | `192.168.60.10`  | DNS Secondaire/Réplicat                           |
-| **Succursale** | `Windows Serveur` | `192.168.60.11`  | Active Directory, Fichiers                        |
-| **Siège** | `DOCKER`          | `192.168.110.10` | Conteneurs : DNS, SYSLOG, Proxy, Mail, WEB, BDD   |
+| **Succursale** | `Replicat - DNS`  | `192.168.60.1`  | DNS Secondaire/Réplicat                           |
+| **Succursale** | `Windows Serveur` | `192.168.60.1`  | Active Directory, Fichiers                        |
+| **Siège** | `DOCKER`          | `192.168.110.1` | Conteneurs : DNS, SYSLOG, Proxy, Mail, WEB, BDD   |
 ---
 
 ## Organisation et Travail à Réaliser
