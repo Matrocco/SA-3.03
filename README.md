@@ -82,7 +82,7 @@ Le déploiement s'appuie sur un domaine **societeX.pepiniere.rt** et comprend:
 | Site           | Nom Serveur       | IP (Statique)    | Rôles / Services                                  |
 | :---           | :---              | :---             | :---                                              |
 | **Succursale** | `Replicat - DNS`  | `192.168.60.1`  | DNS Secondaire/Réplicat                           |
-| **Succursale** | `Windows Serveur` | `192.168.60.1`  | Active Directory, Fichiers                        |
+| **Succursale** | `Windows Serveur` | `192.168.60.2`  | Active Directory, Fichiers                        |
 | **Siège** | `DOCKER`          | `192.168.110.1` | Conteneurs : DNS, SYSLOG, Proxy, Mail, WEB, BDD   |
 ---
 
