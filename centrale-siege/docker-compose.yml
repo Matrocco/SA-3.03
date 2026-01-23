@@ -3,7 +3,7 @@ version: '3.8'
 services:
   syslog-ng:
     image: balabit/syslog-ng:latest
-    container_name: mon-serveur-syslog
+    container_name: syslog
     restart: unless-stopped
     ports:
       - "514:514/udp"  # Port standard UDP
@@ -16,7 +16,7 @@ services:
 
   bind9:
     image: ubuntu/bind9:latest
-    container_name: bind9
+    container_name: bind9-Siege
     environment:
       - BIND9_USER=bind
     ports:
@@ -67,3 +67,22 @@ services:
         syslog-address: "udp://127.0.0.1:514"
         tag: "Serv-Proxy"
     restart: always
+  
+  web:
+    build: .
+    # IMPORTANT : On nomme l'image avec l'adresse du registre local
+    image: localhost:5000/web-siege:latest
+    container_name: web-siege
+    ports:
+      - "80:80"
+    deploy:
+      replicas: 3
+    restart: always
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://syslog-ng:514"
+        tag: "Serv-Web"
+    depends_on:
+      - syslog-ng
+      - registry
