@@ -1,7 +1,8 @@
+version: '3.8'
 services:
-  db:
+  db-master:
     image: mariadb:latest
-    container_name: mariadb_prod
+    container_name: mariadb_prod_master
     restart: always
     environment:
       - MARIADB_ROOT_PASSWORD=progtr00
@@ -9,12 +10,8 @@ services:
       - MARIADB_USER=admin_user
       - MARIADB_PASSWORD=progtr01
     ports:
+      # Format : "PORT_HOTE:PORT_CONTENEUR"
       - "3306:3306"
     volumes:
-      - ./data:/var/lib/mysql
-    networks:
-      - bdd-network
-
-networks:
-  bdd-network:
-    driver: bridge
+      - ./data_master:/var/lib/mysql
+    command: --server-id=1 --log-bin=mysql-bin --binlog-format=row

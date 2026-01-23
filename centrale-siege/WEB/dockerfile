@@ -1,0 +1,11 @@
+# 1. On part de l'image de base Nginx
+FROM nginx:alpine
+
+# 2. On supprime la page par défaut de Nginx (optionnel mais propre)
+RUN rm -rf /usr/share/nginx/html/*
+
+# 3. On copie TON site à l'intérieur de l'image
+COPY . /usr/share/nginx/html
+
+# 4. (Optionnel) On dit que le port 80 est ouvert
+EXPOSE 80

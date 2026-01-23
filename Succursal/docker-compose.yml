@@ -1,0 +1,24 @@
+services:
+  bind9-slave:
+    image: ubuntu/bind9:latest
+    container_name: bind9_slave
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+    environment:
+      - BIND9_USER=bind
+    volumes:
+      - ./config-slave:/etc/bind
+      - ./cache-slave:/var/cache/bind
+    restart: unless-stopped
+
+  web-replica:
+    # Docker va télécharger l'image depuis ton Serveur A
+    image: 192.168.110.1:5000/web-siege:latest
+    ports:
+      - "80:80"
+    deploy:
+      replicas: 2
+    restart: alwaysS
+
+  
