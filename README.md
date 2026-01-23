@@ -12,7 +12,8 @@ Le projet consiste à gérer la migration et l'extension informatique d'une entr
 
 ## Architecture et Services à Déployer
 
-<img width="1264" height="905" alt="SchemaPKTSAE303" src="https://github.com/user-attachments/assets/a6b1d822-2411-4671-b79a-cedc9dca7001" />
+<img width="1631" height="747" alt="Capture d’écran 2026-01-19 160749" src="https://github.com/user-attachments/assets/21349ed3-1689-4807-b5e2-f14e3e7528aa" />
+
 
 ### Infrastructure Réseau
 
