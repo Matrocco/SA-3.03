@@ -1,0 +1,172 @@
+Building configuration...
+
+Current configuration : 2595 bytes
+!
+version 15.5
+service timestamps log datetime msec
+service timestamps debug datetime msec
+no service password-encryption
+!
+hostname IR800
+!
+!
+boot system flash ir800-universalk9-mz.SPA.155-3.M
+!
+!
+ip dhcp excluded-address 192.168.10.1 192.168.10.20
+ip dhcp excluded-address 192.168.20.1 192.168.20.20
+ip dhcp excluded-address 192.168.30.1 192.168.30.20
+ip dhcp excluded-address 192.168.40.1 192.168.40.20
+ip dhcp excluded-address 192.168.50.1 192.168.50.20
+ip dhcp excluded-address 192.168.60.1 192.168.60.20
+!
+ip dhcp pool VLAN10
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.1
+ dns-server 8.8.8.8
+!
+ip dhcp pool VLAN20
+ network 192.168.20.0 255.255.255.0
+ default-router 192.168.20.1
+ dns-server 8.8.8.8
+!
+ip dhcp pool VLAN30
+ network 192.168.30.0 255.255.255.0
+ default-router 192.168.30.1
+ dns-server 8.8.8.8
+!
+ip dhcp pool VLAN40
+ network 192.168.40.0 255.255.255.0
+ default-router 192.168.40.1
+ dns-server 8.8.8.8
+!
+ip dhcp pool VLAN50
+ network 192.168.50.0 255.255.255.0
+ default-router 192.168.50.1
+ dns-server 8.8.8.8
+!
+ip dhcp pool VLAN60
+ network 192.168.60.0 255.255.255.0
+ default-router 192.168.60.1
+ dns-server 8.8.8.8
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid IR829GW-LTE-NA-AK9 sn FTX180632C3-
+license boot module ir800 technology-package datak9 disable
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet1
+ switchport trunk allowed vlan 10,20,30,40,50,60
+ switchport mode trunk
+!
+interface GigabitEthernet2
+!
+interface GigabitEthernet3
+!
+interface GigabitEthernet4
+!
+interface wlan-ap0
+ no ip address
+!
+interface Wlan-GigabitEthernet0
+!
+interface GigabitEthernet5
+ no ip address
+ duplex auto
+ speed auto
+!
+interface Cellular0
+ ip address negotiated
+ shutdown
+!
+interface Cellular1
+ ip address negotiated
+ shutdown
+!
+interface Vlan1
+ no ip address
+!
+interface Vlan10
+ mac-address 0002.4a13.be01
+ ip address 192.168.10.1 255.255.255.0
+!
+interface Vlan20
+ mac-address 0002.4a13.be02
+ ip address 192.168.20.1 255.255.255.0
+!
+interface Vlan30
+ mac-address 0002.4a13.be03
+ ip address 192.168.30.1 255.255.255.0
+!
+interface Vlan40
+ mac-address 0002.4a13.be04
+ ip address 192.168.40.1 255.255.255.0
+!
+interface Vlan50
+ mac-address 0002.4a13.be05
+ ip address 192.168.50.1 255.255.255.0
+!
+interface Vlan60
+ mac-address 0002.4a13.be06
+ ip address 192.168.60.1 255.255.255.0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line 1 2
+!
+line 3
+!
+line 4
+ transport input all
+!
+line 8
+!
+line 1/3 1/6
+!
+line vty 0 4
+ login
+!
+!
+!
+end
