@@ -1,6 +1,4 @@
-Building configuration...
-
-Current configuration : 2595 bytes
+Current configuration : 1625 bytes
 !
 version 15.5
 service timestamps log datetime msec
@@ -10,45 +8,10 @@ no service password-encryption
 hostname IR800
 !
 !
-boot system flash ir800-universalk9-mz.SPA.155-3.M
+boot system flash ir800-universalk9-mz.SPA.155-3.M 
 !
 !
-ip dhcp excluded-address 192.168.10.1 192.168.10.20
-ip dhcp excluded-address 192.168.20.1 192.168.20.20
-ip dhcp excluded-address 192.168.30.1 192.168.30.20
-ip dhcp excluded-address 192.168.40.1 192.168.40.20
-ip dhcp excluded-address 192.168.50.1 192.168.50.20
-ip dhcp excluded-address 192.168.60.1 192.168.60.20
 !
-ip dhcp pool VLAN10
- network 192.168.10.0 255.255.255.0
- default-router 192.168.10.1
- dns-server 8.8.8.8
-!
-ip dhcp pool VLAN20
- network 192.168.20.0 255.255.255.0
- default-router 192.168.20.1
- dns-server 8.8.8.8
-!
-ip dhcp pool VLAN30
- network 192.168.30.0 255.255.255.0
- default-router 192.168.30.1
- dns-server 8.8.8.8
-!
-ip dhcp pool VLAN40
- network 192.168.40.0 255.255.255.0
- default-router 192.168.40.1
- dns-server 8.8.8.8
-!
-ip dhcp pool VLAN50
- network 192.168.50.0 255.255.255.0
- default-router 192.168.50.1
- dns-server 8.8.8.8
-!
-ip dhcp pool VLAN60
- network 192.168.60.0 255.255.255.0
- default-router 192.168.60.1
- dns-server 8.8.8.8
 !
 !
 !
@@ -58,13 +21,30 @@ no ipv6 cef
 !
 !
 !
-license udi pid IR829GW-LTE-NA-AK9 sn FTX180632C3-
+license udi pid IR829GW-LTE-NA-AK9 sn FTX18061BZJ-
 license boot module ir800 technology-package datak9 disable
 !
 !
 !
+crypto isakmp policy 10
+ encr aes
+ authentication pre-share
+ group 2
+!
+crypto isakmp key CLESECRETE address 172.16.1.1
+crypto isakmp key CLESECRETE address 172.16.1.2
+crypto isakmp key progtr00 address 172.16.1.10
 !
 !
+!
+crypto ipsec transform-set TSET esp-aes esp-sha-hmac
+!
+crypto map VPN-MAP 10 ipsec-isakmp 
+ ! Incomplete
+ set peer 172.16.1.1
+ set peer 172.16.1.100
+ set transform-set TSET 
+ match address 100
 !
 !
 !
@@ -80,15 +60,20 @@ spanning-tree mode pvst
 !
 !
 !
+interface Tunnel1
+ ip address 172.16.1.2 255.255.255.252
+ mtu 1476
+ tunnel source GigabitEthernet0
+ tunnel destination 172.16.1.1
+!
+!
 interface GigabitEthernet0
- no ip address
+ ip address 10.1.1.1 255.0.0.0
  duplex auto
  speed auto
- shutdown
+ crypto map VPN-MAP
 !
 interface GigabitEthernet1
- switchport trunk allowed vlan 10,20,30,40,50,60
- switchport mode trunk
 !
 interface GigabitEthernet2
 !
@@ -116,30 +101,6 @@ interface Cellular1
 !
 interface Vlan1
  no ip address
-!
-interface Vlan10
- mac-address 0002.4a13.be01
- ip address 192.168.10.1 255.255.255.0
-!
-interface Vlan20
- mac-address 0002.4a13.be02
- ip address 192.168.20.1 255.255.255.0
-!
-interface Vlan30
- mac-address 0002.4a13.be03
- ip address 192.168.30.1 255.255.255.0
-!
-interface Vlan40
- mac-address 0002.4a13.be04
- ip address 192.168.40.1 255.255.255.0
-!
-interface Vlan50
- mac-address 0002.4a13.be05
- ip address 192.168.50.1 255.255.255.0
-!
-interface Vlan60
- mac-address 0002.4a13.be06
- ip address 192.168.60.1 255.255.255.0
 !
 ip classless
 !
