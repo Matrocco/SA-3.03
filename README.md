@@ -1,5 +1,5 @@
 # SA-3.03
-SAÉ 3.03 faite en coopération avec 3 camarade de classe 
+SAÉ 3.03 faite en coopération avec 3 camarade de classe : CUBIZOLLES Estéban, KARBOWSKI Géraud, ALLART Baptiste
 
 
 Voici une présentation structurée du projet **SAÉ 3.03 : Projet pépinière multi-sites**, basée sur les documents fournis :
