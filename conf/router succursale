@@ -1,6 +1,6 @@
 Building configuration...
 
-Current configuration : 2595 bytes
+Current configuration : 3274 bytes
 !
 version 15.5
 service timestamps log datetime msec
@@ -54,18 +54,35 @@ no ipv6 cef
 !
 !
 license udi pid IR829GW-LTE-NA-AK9 sn FTX180632C3-
+license boot module ir800 technology-package securityk9
 license boot module ir800 technology-package datak9 disable
 !
 !
 !
+crypto isakmp policy 10
+ encr aes
+ authentication pre-share
+ group 2
+!
+crypto isakmp key CLESECRETE address 172.16.1.1
+crypto isakmp key progtr00 address 172.16.1.10
+!
+!
+!
+crypto ipsec transform-set TS esp-aes 256 esp-sha-hmac
+crypto ipsec transform-set TSET esp-aes esp-sha-hmac
+!
+crypto map VPN-MAP 10 ipsec-isakmp 
+ set peer 172.16.1.100
+ set transform-set TSET 
+ match address 100
 !
 !
 !
 !
 !
 !
-!
-!
+no ip domain-lookup
 !
 !
 spanning-tree mode pvst
@@ -75,11 +92,18 @@ spanning-tree mode pvst
 !
 !
 !
+interface Tunnel1
+ ip address 172.16.1.1 255.255.255.0
+ mtu 1476
+ tunnel source GigabitEthernet0
+ tunnel destination 172.16.1.2
+!
+!
 interface GigabitEthernet0
- no ip address
+ ip address 10.1.2.1 255.0.0.0
  duplex auto
  speed auto
- shutdown
+ crypto map VPN-MAP
 !
 interface GigabitEthernet1
  switchport trunk allowed vlan 70,80,90,100,110,120
@@ -141,6 +165,7 @@ ip classless
 ip flow-export version 9
 !
 !
+access-list 100 permit ip 172.16.1.0 0.0.0.3 172.16.1.0 0.0.0.3
 !
 !
 !
