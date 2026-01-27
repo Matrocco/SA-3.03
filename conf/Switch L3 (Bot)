@@ -1,0 +1,172 @@
+Current configuration : 2538 bytes
+!
+version 12.2(37)SE1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Switch
+!
+!
+no profinet
+!
+!
+!
+!
+!
+mls qos
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+class-map match-any PROD
+class-map match-any SERVEUR
+class-map match-any VIDEO
+class-map match-any ADMIN
+class-map match-any PERSO
+class-map match-any GUEST
+class-map match-any HIGH
+ match access-group 10
+ match access-group 11
+ match access-group name HIGH_TRAFFIC
+class-map match-any MEDIUM
+ match access-group 20
+ match access-group name MEDIUM_TRAFFIC
+class-map match-any LOW
+ match access-group 30
+ match access-group name LOW_TRAFFIC
+!
+policy-map QOS_POLICY
+ class HIGH
+  priority percent 20
+ class class-default
+  fair-queue
+!
+!
+!
+!
+!
+interface FastEthernet0/1
+ description Link to Router
+!
+interface FastEthernet0/2
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ mac-address 000d.bd43.e801
+ ip address 192.168.10.2 255.255.255.0
+!
+interface Vlan20
+ mac-address 000d.bd43.e802
+ ip address 192.168.20.2 255.255.255.0
+!
+interface Vlan30
+ mac-address 000d.bd43.e803
+ ip address 192.168.30.2 255.255.255.0
+!
+interface Vlan40
+ mac-address 000d.bd43.e804
+ ip address 192.168.40.2 255.255.255.0
+!
+interface Vlan50
+ mac-address 000d.bd43.e805
+ ip address 192.168.50.2 255.255.255.0
+!
+interface Vlan60
+ mac-address 000d.bd43.e806
+ ip address 192.168.60.2 255.255.255.0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+ip access-list extended HIGH_TRAFFIC
+ permit ip 192.168.10.0 0.0.0.255 any
+ permit ip 192.168.40.0 0.0.0.255 any
+ip access-list extended MEDIUM_TRAFFIC
+ permit ip 192.168.20.0 0.0.0.255 any
+ip access-list extended LOW_TRAFFIC
+ permit ip 192.168.30.0 0.0.0.255 any
+ permit ip 192.168.50.0 0.0.0.255 any
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+!
+end
