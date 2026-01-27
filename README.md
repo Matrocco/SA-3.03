@@ -132,6 +132,3 @@ Le projet se déroule en plusieurs phases chronologiques :
 
 *  **Rendu final & Aide aux RT1** : 4 points (2 + 2).
 
-
-
-Souhaitez-vous que je vous aide à détailler le plan d'adressage IP ou à lister les étapes prioritaires pour la configuration des serveurs ?
