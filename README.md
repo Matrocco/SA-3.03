@@ -55,7 +55,7 @@ Le déploiement s'appuie sur un domaine **societeX.pepiniere.rt** et comprend:
 
 # Tableau d'Adressage Maquette Réseau
 
-## 2. Site Siège (Droite)
+## 1. Site Siège (Droite)
 
 | Zone / VLAN | ID VLAN | Adresse Réseau   | Masque (CIDR) | Passerelle (Gateway) |
 | :---        | :---:   | :---             | :---:         | :---                 |
@@ -66,7 +66,7 @@ Le déploiement s'appuie sur un domaine **societeX.pepiniere.rt** et comprend:
 | **GUEST** | 50      | `192.168.50.0`   | /24           | `192.168.50.254`       |
 | **SERVEUR** | 60      | `192.168.60.0`   | /24           | `192.168.60.254`       |
 
-## 1. Site Succursale (Gauche)
+## 2. Site Succursale (Gauche)
 
 | Zone / VLAN | ID VLAN | Adresse Réseau   | Masque (CIDR) | Passerelle (Gateway) |
 | :---        | :---:   | :---             | :---:         | :---                 |
