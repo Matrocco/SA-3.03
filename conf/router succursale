@@ -22,27 +22,27 @@ ip dhcp excluded-address 192.168.60.1 192.168.60.20
 !
 ip dhcp pool VLAN70
  network 192.168.10.0 255.255.255.0
- default-router 192.168.10.1
+ default-router 192.168.70.1
  dns-server 8.8.8.8
 ip dhcp pool VLAN80
  network 192.168.20.0 255.255.255.0
- default-router 192.168.20.1
+ default-router 192.168.80.1
  dns-server 8.8.8.8
 ip dhcp pool VLAN90
  network 192.168.30.0 255.255.255.0
- default-router 192.168.30.1
+ default-router 192.168.90.1
  dns-server 8.8.8.8
 ip dhcp pool VLAN100
  network 192.168.40.0 255.255.255.0
- default-router 192.168.40.1
+ default-router 192.168.100.1
  dns-server 8.8.8.8
 ip dhcp pool VLAN110
  network 192.168.50.0 255.255.255.0
- default-router 192.168.50.1
+ default-router 192.168.110.1
  dns-server 8.8.8.8
 ip dhcp pool VLAN120
  network 192.168.60.0 255.255.255.0
- default-router 192.168.60.1
+ default-router 192.168.120.1
  dns-server 8.8.8.8
 !
 !
