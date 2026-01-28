@@ -1,10 +1,9 @@
 Building configuration...
 
   
-*Jan 28 12:40:26.181: %SYS-5-CONFIG_I: Configured from console by console
-Current configuration : 3416 bytes
+Current configuration : 4266 bytes
 !
-! Last configuration change at 12:40:26 UTC Wed Jan 28 2026
+! Last configuration change at 14:50:41 UTC Wed Jan 28 2026 by groupe10
 !
 version 15.8
 service timestamps debug datetime msec
@@ -24,8 +23,8 @@ no aaa new-model
 !
 !
 !
-!         
-!         
+!
+!
 !
 !
 ip dhcp excluded-address 192.168.10.254
@@ -67,17 +66,19 @@ ip dhcp pool vlan 50
  default-router 192.168.50.254 
  dns-server 172.18.26.101 
 !
-!
+!         
 !
 no ip domain lookup
 ip domain name entreprise10.local
-ip cef    
+ip cef
 no ipv6 cef
+!
 multilink bundle-name authenticated
 !
 !
 !
 license udi pid C927-4P sn FGL2348L2DU
+license boot module c900 technology-package securityk9
 !
 !
 vtp version 2
@@ -86,15 +87,31 @@ username groupe10 secret 5 $1$jc/y$NdqeeTFlBD5R40BWhhpft1
 redundancy
 !
 !
+!
+!
+!
 controller VDSL 0
 !
+! 
 !
 !
 !
+!
+!
+!
+!
+!
+!
+interface Tunnel1
+ ip address 172.16.1.1 255.255.255.252
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ tunnel source 10.4.2.1
+ tunnel destination 10.4.1.1
 !
 interface ATM0
  no ip address
- shutdown 
+ shutdown
  no atm ilmi-keepalive
 !
 interface Ethernet0
@@ -115,7 +132,7 @@ interface GigabitEthernet3
  no ip address
 !
 interface GigabitEthernet4
- ip address 10.10.2.1 255.0.0.0
+ ip address 10.4.1.1 255.0.0.0
  ip access-group 1 in
  ip nat outside
  ip virtual-reassembly in
@@ -161,6 +178,15 @@ interface Vlan60
  ip nat inside
  ip virtual-reassembly in
 !
+router ospf 1
+ network 10.0.0.0 0.255.255.255 area 1
+ network 192.168.10.0 0.0.0.255 area 1
+ network 192.168.20.0 0.0.0.255 area 1
+ network 192.168.30.0 0.0.0.255 area 1
+ network 192.168.40.0 0.0.0.255 area 1
+ network 192.168.50.0 0.0.0.255 area 1
+ network 192.168.60.0 0.0.0.255 area 1
+!
 ip forward-protocol nd
 no ip http server
 no ip http secure-server
@@ -174,6 +200,11 @@ ip route 0.0.0.0 0.0.0.0 10.0.0.1
 tftp-server flash:/firmware/vadsl_module_img.bin
 access-list 1 permit 192.168.10.0 0.0.0.255
 access-list 1 permit any
+access-list 1 permit 192.168.20.0 0.0.0.255
+access-list 1 permit 192.168.30.0 0.0.0.255
+access-list 1 permit 192.168.40.0 0.0.0.255
+access-list 1 permit 192.168.50.0 0.0.0.255
+access-list 1 permit 192.168.60.0 0.0.0.255
 !
 control-plane
 !
@@ -185,11 +216,17 @@ line 4
  transport input all
  transport output all
  stopbits 1
-line vty 0 4
+line vty 0 3
  access-class 10 in
  exec-timeout 5 0
  login local
  transport input ssh
+line vty 4
+ access-class 10 in
+ exec-timeout 5 0
+ login local
+ transport input ssh
+ transport output ssh
 !
 scheduler allocate 20000 1000
 !
