@@ -118,27 +118,27 @@ interface Vlan1
 !
 interface Vlan10
  mac-address 000d.bd43.e801
- ip address 192.168.10.2 255.255.255.0
+ ip address 192.168.10.252 255.255.255.0
 !
 interface Vlan20
  mac-address 000d.bd43.e802
- ip address 192.168.20.2 255.255.255.0
+ ip address 192.168.20.252 255.255.255.0
 !
 interface Vlan30
  mac-address 000d.bd43.e803
- ip address 192.168.30.2 255.255.255.0
+ ip address 192.168.30.252 255.255.255.0
 !
 interface Vlan40
  mac-address 000d.bd43.e804
- ip address 192.168.40.2 255.255.255.0
+ ip address 192.168.40.252 255.255.255.0
 !
 interface Vlan50
  mac-address 000d.bd43.e805
- ip address 192.168.50.2 255.255.255.0
+ ip address 192.168.50.252 255.255.255.0
 !
 interface Vlan60
  mac-address 000d.bd43.e806
- ip address 192.168.60.2 255.255.255.0
+ ip address 192.168.60.252 255.255.255.0
 !
 ip classless
 !
