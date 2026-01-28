@@ -120,19 +120,25 @@ interface Vlan1
 !
 interface Vlan10
  mac-address 0001.43b8.4701
- ip address 192.168.10.1 255.255.255.0
+ ip address 192.168.10.251 255.255.255.0
 !
 interface Vlan20
  mac-address 0001.43b8.4702
- ip address 192.168.20.1 255.255.255.0
+ ip address 192.168.20.251 255.255.255.0
 !
 interface Vlan30
  mac-address 0001.43b8.4703
- ip address 192.168.30.1 255.255.255.0
+ ip address 192.168.30.251 255.255.255.0
 !
 interface Vlan40
  mac-address 0001.43b8.4704
- ip address 192.168.40.1 255.255.255.0
+ ip address 192.168.40.251 255.255.255.0
+!
+ mac-address 0001.43b8.4704
+ ip address 192.168.50.251 255.255.255.0
+!
+ mac-address 0001.43b8.4704
+ ip address 192.168.60.251 255.255.255.0
 !
 ip classless
 !
@@ -144,6 +150,7 @@ ip access-list extended HIGH_TRAFFIC
  permit ip 192.168.40.0 0.0.0.255 any
 ip access-list extended MEDIUM_TRAFFIC
  permit ip 192.168.20.0 0.0.0.255 any
+ permit ip 192.168.60.0 0.0.0.255 any
 ip access-list extended LOW_TRAFFIC
  permit ip 192.168.30.0 0.0.0.255 any
  permit ip 192.168.50.0 0.0.0.255 any
