@@ -150,6 +150,7 @@ ip access-list extended HIGH_TRAFFIC
  permit ip 192.168.40.0 0.0.0.255 any
 ip access-list extended MEDIUM_TRAFFIC
  permit ip 192.168.20.0 0.0.0.255 any
+ permit ip 192.168.60.0 0.0.0.255 any
 ip access-list extended LOW_TRAFFIC
  permit ip 192.168.30.0 0.0.0.255 any
  permit ip 192.168.50.0 0.0.0.255 any
