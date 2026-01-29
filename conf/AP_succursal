@@ -1,0 +1,141 @@
+Building configuration...
+
+Current configuration : 2627 bytes
+!
+! Last configuration change at 11:37:41 UTC Sat Mar 2 2002
+version 15.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname ap
+!
+!
+logging rate-limit console 9
+enable secret 5 $1$v6m.$WQe4cmolaBmP9x26TI8bM1
+!
+no aaa new-model
+no ip cef
+!
+!
+!
+!
+dot11 syslog
+!         
+dot11 ssid perso_succursal4
+   vlan 20
+   authentication open 
+   authentication key-management wpa version 2
+   mbssid guest-mode
+   wpa-psk ascii 7 12091718151F1E547A
+!
+dot11 ssid public_succursal4
+   vlan 10
+   authentication open 
+   guest-mode
+   mbssid guest-mode
+!
+!
+dot11 guest
+!
+!
+!
+username Cisco password 7 072C285F4D06
+!
+!
+bridge irb
+!         
+!
+!
+interface Dot11Radio0
+ no ip address
+ !
+ encryption vlan 20 mode ciphers aes-ccm 
+ !
+ ssid perso_succursal4
+ !
+ ssid public_succursal4
+ !
+ antenna gain 0
+ mbssid
+ station-role root
+ bridge-group 1
+ bridge-group 1 subscriber-loop-control
+ bridge-group 1 block-unknown-source
+ no bridge-group 1 source-learning
+ no bridge-group 1 unicast-flooding
+!
+interface Dot11Radio0.10
+ encapsulation dot1Q 10
+ bridge-group 10
+ bridge-group 10 subscriber-loop-control
+ bridge-group 10 spanning-disabled
+ bridge-group 10 block-unknown-source
+ no bridge-group 10 source-learning
+ no bridge-group 10 unicast-flooding
+!
+interface Dot11Radio0.20
+ encapsulation dot1Q 20
+ bridge-group 20
+ bridge-group 20 subscriber-loop-control
+ bridge-group 20 spanning-disabled
+ bridge-group 20 block-unknown-source
+ no bridge-group 20 source-learning
+ no bridge-group 20 unicast-flooding
+!
+interface Dot11Radio1
+ no ip address
+ shutdown
+ antenna gain 0
+ peakdetect
+ no dfs band block
+ channel dfs
+ station-role root
+ bridge-group 1
+ bridge-group 1 subscriber-loop-control
+ bridge-group 1 spanning-disabled
+ bridge-group 1 block-unknown-source
+ no bridge-group 1 source-learning
+ no bridge-group 1 unicast-flooding
+!
+interface GigabitEthernet0
+ no ip address
+ duplex auto
+ speed auto
+ bridge-group 1
+ bridge-group 1 spanning-disabled
+ no bridge-group 1 source-learning
+!
+interface GigabitEthernet0.10
+ encapsulation dot1Q 10
+ bridge-group 10
+ bridge-group 10 spanning-disabled
+ no bridge-group 10 source-learning
+!
+interface GigabitEthernet0.20
+ encapsulation dot1Q 20
+ bridge-group 20
+ bridge-group 20 spanning-disabled
+ no bridge-group 20 source-learning
+!
+interface BVI1
+ ipv6 address dhcp
+ ipv6 address autoconfig
+ ipv6 enable
+!
+ip forward-protocol nd
+ip http server
+no ip http secure-server
+ip http help-path http://www.cisco.com/warp/public/779/smbiz/prodconfig/help/eag
+!
+!
+bridge 1 route ip
+!
+!
+!
+line con 0
+line vty 0 4
+ login local
+ transport input all
+!
