@@ -1,8 +1,6 @@
-Building configuration...
-
-Current configuration : 5401 bytes
+Current configuration : 5464 bytes
 !
-! Last configuration change at 03:44:23 UTC Sat May 17 1952
+! Last configuration change at 03:58:12 UTC Sat May 17 1952
 !
 version 15.8
 service config
@@ -120,7 +118,10 @@ crypto ipsec profile IPSEC_PROFILE
 !
 interface Tunnel1
  ip address 172.16.1.2 255.255.255.252
+ ip access-group 1 in
  ip mtu 1400
+ ip nat inside
+ ip virtual-reassembly in
  ip tcp adjust-mss 1360
  tunnel source 10.4.2.1
  tunnel mode ipsec ipv4
@@ -134,7 +135,7 @@ interface ATM0
 !
 interface Ethernet0
  no ip address
- shutdown
+ shutdown 
 !
 interface GigabitEthernet0
  switchport mode trunk
@@ -183,7 +184,7 @@ interface Vlan40
  ip access-group 1 in
  ip nat inside
  ip virtual-reassembly in
-!         
+!
 interface Vlan50
  ip address 192.168.50.254 255.255.255.0
  ip access-group 1 in
@@ -259,4 +260,3 @@ line vty 4
 scheduler allocate 20000 1000
 !
 end
-
