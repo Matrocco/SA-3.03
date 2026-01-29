@@ -61,7 +61,7 @@ services:
     logging:
       driver: syslog
       options:
-        syslog-address: "udp://syslog-ng:514"
+        syslog-address: "udp://127.0.0.1:514"
         tag: "Serv-Web"
     depends_on:
       - syslog-ng
