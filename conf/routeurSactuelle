@@ -1,52 +1,5 @@
 Building configuration...
 
-  [OK][OK]
-R#
-*Jan 29 13:09:44.941: %SYS-2-PRIVCFG_ENCRYPT: Successfully encrypted private config fileping 172.16.1.2
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 172.16.1.2, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 4/4/6 ms
-R#ping 172.16.1.1
-Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 172.16.1.1, timeout is 2 seconds:
-!!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/1 ms
-R#end
-Translating "end"
-
-% Bad IP address or host name
-Translating "end"
-
-% Unknown command or computer name, or unable to find computer address
-R# 
-*Jan 29 13:10:01.581: %OSPF-4-DUP_RTRID_NBR: OSPF detected duplicate router-id 192.168.60.254 from 10.4.2.1 on interface Giga4
-*Jan 29 13:11:07.557: %OSPF-4-DUP_RTRID_NBR: OSPF detected duplicate router-id 192.168.60.254 from 10.4.2.1 on interface Giga4
-*Jan 29 13:12:13.783: %OSPF-4-DUP_RTRID_NBR: OSPF detected duplicate router-id 192.168.60.254 from 10.4.2.1 on interface Giga4
-*Jan 29 13:13:14.967: %OSPF-4-DUP_RTRID_NBR: OSPF detected duplicate router-id 192.168.60.254 from 10.4.2.1 on interface Giga4
-R#
-R#
-R#conf t
-Enter configuration commands, one per line.  End with CNTL/Z.
-R(config)#int
-R(config)#interface tun
-R(config)#interface tunnel 1
-R(config-if)# ip access-group 1 in
-R(config-if)# ip nat inside
-R(config-if)# ip virtual-reassembly in
-R(config-if)#end                      
-R#wr
-Building configuration...
-
-  [OK][OK]
-R#
-*Jan 29 13:14:11.199: %SYS-5-CONFIG_I: Configured from console by console
-*Jan 29 13:14:13.997: %SYS-2-PRIVCFG_ENCRYPT: Successfully encrypted private config file
-R#
-R#
-R#sh run
-Building configuration...
-
   
 Current configuration : 5022 bytes
 !
