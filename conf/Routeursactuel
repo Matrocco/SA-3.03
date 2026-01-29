@@ -1,0 +1,239 @@
+Building configuration...
+
+  
+*Jan 29 09:53:25.381: %SYS-5-CONFIG_I: Configured from console by console
+Current configuration : 4580 bytes
+!
+! Last configuration change at 09:53:25 UTC Thu Jan 29 2026
+!
+version 15.8
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname R
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$Fo0u$85h/47H8VFhkphiyKlLan0
+!
+no aaa new-model
+!
+!
+!
+!
+!         
+!
+!
+!
+ip dhcp excluded-address 192.168.10.1 192.168.10.99
+ip dhcp excluded-address 192.168.10.151 192.168.10.254
+ip dhcp excluded-address 192.168.20.1 192.168.20.99
+ip dhcp excluded-address 192.168.20.151 192.168.20.254
+ip dhcp excluded-address 192.168.30.1 192.168.30.99
+ip dhcp excluded-address 192.168.30.151 192.168.30.254
+ip dhcp excluded-address 192.168.40.1 192.168.40.99
+ip dhcp excluded-address 192.168.40.151 192.168.40.254
+ip dhcp excluded-address 192.168.50.1 192.168.50.99
+ip dhcp excluded-address 192.168.50.151 192.168.50.254
+ip dhcp excluded-address 192.168.60.1 192.168.60.99
+ip dhcp excluded-address 192.168.60.151 192.168.60.254
+!
+ip dhcp pool VLAN_10
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.254 
+ dns-server 172.18.26.101 
+!
+ip dhcp pool VLAN_20
+ network 192.168.20.0 255.255.255.0
+ default-router 192.168.20.254 
+ dns-server 172.18.26.101 
+!
+ip dhcp pool VLAN_30
+ network 192.168.30.0 255.255.255.0
+ default-router 192.168.30.254 
+ dns-server 172.18.26.101 
+!
+ip dhcp pool vlan 40
+ network 192.168.40.0 255.255.255.0
+ default-router 192.168.40.254 
+ dns-server 172.18.26.101 
+!
+ip dhcp pool vlan 60
+ network 192.168.60.0 255.255.255.0
+ default-router 192.168.60.254 
+ dns-server 172.18.26.101 
+!
+ip dhcp pool vlan 50
+ network 192.168.50.0 255.255.255.0
+ default-router 192.168.50.254 
+ dns-server 172.18.26.101 
+!         
+!
+!
+no ip domain lookup
+ip domain name entreprise10.local
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+license udi pid C927-4P sn FGL2348L2DU
+license boot module c900 technology-package securityk9
+!
+!
+vtp version 2
+username groupe10 secret 5 $1$jc/y$NdqeeTFlBD5R40BWhhpft1
+!
+redundancy
+!
+!
+!
+!         
+!
+controller VDSL 0
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Tunnel1
+ ip address 172.16.1.2 255.255.255.252
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ tunnel source 10.4.1.1
+ tunnel destination 10.4.2.1
+
+!
+interface ATM0
+ no ip address
+ shutdown 
+ no atm ilmi-keepalive
+!
+interface Ethernet0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0
+ switchport mode trunk
+ no ip address
+!
+interface GigabitEthernet1
+ no ip address
+!
+interface GigabitEthernet2
+ no ip address
+!
+interface GigabitEthernet3
+ no ip address
+!
+interface GigabitEthernet4
+ ip address 10.4.1.1 255.0.0.0
+ ip access-group 1 in
+ ip nat outside
+ ip virtual-reassembly in
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+!
+interface Vlan10
+ ip address 192.168.10.254 255.255.255.0
+ ip access-group 1 in
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface Vlan20
+ ip address 192.168.20.254 255.255.255.0
+ ip access-group 1 in
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface Vlan30
+ ip address 192.168.30.254 255.255.255.0
+ ip access-group 1 in
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface Vlan40
+ ip address 192.168.40.254 255.255.255.0
+ ip access-group 1 in
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface Vlan50
+ ip address 192.168.50.254 255.255.255.0
+ ip access-group 1 in
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface Vlan60
+ ip address 192.168.60.254 255.255.255.0
+ ip access-group 1 in
+ ip nat inside
+ ip virtual-reassembly in
+!
+router ospf 1
+ network 10.0.0.0 0.255.255.255 area 1
+ network 192.168.10.0 0.0.0.255 area 1
+ network 192.168.20.0 0.0.0.255 area 1
+ network 192.168.30.0 0.0.0.255 area 1
+ network 192.168.40.0 0.0.0.255 area 1
+ network 192.168.50.0 0.0.0.255 area 1
+ network 192.168.60.0 0.0.0.255 area 1
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+ip nat inside source list 1 interface GigabitEthernet4 overload
+ip route 0.0.0.0 0.0.0.0 10.0.0.1
+!
+!
+!
+tftp-server flash:/firmware/vadsl_module_img.bin
+access-list 1 permit 192.168.10.0 0.0.0.255
+access-list 1 permit any
+access-list 1 permit 192.168.20.0 0.0.0.255
+access-list 1 permit 192.168.30.0 0.0.0.255
+access-list 1 permit 192.168.40.0 0.0.0.255
+access-list 1 permit 192.168.50.0 0.0.0.255
+access-list 1 permit 192.168.60.0 0.0.0.255
+!
+control-plane
+!
+!
+line con 0
+line 4
+ no activation-character
+ transport preferred none
+ transport input all
+ transport output all
+ stopbits 1
+line vty 0 3
+ access-class 10 in
+ exec-timeout 5 0
+ login local
+ transport input ssh
+line vty 4
+ access-class 10 in
+ exec-timeout 5 0
+ login local
+ transport input ssh
+ transport output ssh
+!
+scheduler allocate 20000 1000
+!
+end
