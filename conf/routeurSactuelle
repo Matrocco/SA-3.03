@@ -1,10 +1,7 @@
 Building configuration...
 
   
-*Jan 29 09:53:25.381: %SYS-5-CONFIG_I: Configured from console by console
-Current configuration : 4580 bytes
-!
-! Last configuration change at 09:53:25 UTC Thu Jan 29 2026
+Current configuration : 4553 bytes
 !
 version 15.8
 service timestamps debug datetime msec
@@ -24,9 +21,9 @@ no aaa new-model
 !
 !
 !
+!
+!
 !         
-!
-!
 !
 ip dhcp excluded-address 192.168.10.1 192.168.10.99
 ip dhcp excluded-address 192.168.10.151 192.168.10.254
@@ -70,9 +67,9 @@ ip dhcp pool vlan 50
  network 192.168.50.0 255.255.255.0
  default-router 192.168.50.254 
  dns-server 172.18.26.101 
+!
+!
 !         
-!
-!
 no ip domain lookup
 ip domain name entreprise10.local
 ip cef
@@ -93,7 +90,7 @@ redundancy
 !
 !
 !
-!         
+!
 !
 controller VDSL 0
 !
@@ -113,13 +110,12 @@ interface Tunnel1
  ip tcp adjust-mss 1360
  tunnel source 10.4.1.1
  tunnel destination 10.4.2.1
-
 !
 interface ATM0
  no ip address
- shutdown 
+ shutdown
  no atm ilmi-keepalive
-!
+!         
 interface Ethernet0
  no ip address
  shutdown
@@ -165,7 +161,7 @@ interface Vlan30
  ip access-group 1 in
  ip nat inside
  ip virtual-reassembly in
-!
+!         
 interface Vlan40
  ip address 192.168.40.254 255.255.255.0
  ip access-group 1 in
@@ -186,6 +182,7 @@ interface Vlan60
 !
 router ospf 1
  network 10.0.0.0 0.255.255.255 area 1
+ network 172.16.1.0 0.0.0.3 area 1
  network 192.168.10.0 0.0.0.255 area 1
  network 192.168.20.0 0.0.0.255 area 1
  network 192.168.30.0 0.0.0.255 area 1
@@ -233,7 +230,7 @@ line vty 4
  login local
  transport input ssh
  transport output ssh
-!
+!         
 scheduler allocate 20000 1000
 !
 end
