@@ -65,4 +65,3 @@ services:
         tag: "Serv-Web"
     depends_on:
       - syslog-ng
-      - registry
