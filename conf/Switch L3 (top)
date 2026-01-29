@@ -1,45 +1,70 @@
 Building configuration...
 
-Current configuration : 2366 bytes
+Current configuration : 5271 bytes
 !
-version 12.2(37)SE1
-no service timestamps log datetime msec
-no service timestamps debug datetime msec
+version 12.2
+no service pad
+no service timestamps debug uptime
+no service timestamps log uptime
 no service password-encryption
 !
 hostname Switch
 !
-!
-no profinet
-!
-!
+boot-start-marker
+boot-end-marker
 !
 !
-!
-mls qos
-!
+username admin privilege 15 secret 5 $1$.H0A$uD0qtfF5Pr9lYvyXC3NJi1
 !
 !
+no aaa new-model
+system mtu routing 1500
 !
 !
 !
+mls qos   
+!
+crypto pki trustpoint TP-self-signed-4188421248
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-4188421248
+ revocation-check none
+ rsakeypair TP-self-signed-4188421248
 !
 !
-!
-!
-!
+crypto pki certificate chain TP-self-signed-4188421248
+ certificate self-signed 01
+  3082023F 308201A8 A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 34313838 34323132 3438301E 170D3933 30333031 30303031 
+  30345A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D34 31383834 
+  32313234 3830819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100D946 8447B103 84BF1A94 16679EFA 00133879 6ECA1741 7F559541 BABDE608 
+  AEDF4B81 564972A1 94D040EF 8E8AD653 468C1A93 03A66EE4 017B88B0 29A6BB0C 
+  97DD0BF1 9264C1DE 00C68430 778AA623 5F1DAC28 3714F6E3 4B0D2B29 930E2EA6 
+  1882C5CA 4300D31A 11A1C516 4D16791E F4543FA7 1B20AB7C 467B95AA BC603DD3 
+  73890203 010001A3 67306530 0F060355 1D130101 FF040530 030101FF 30120603 
+  551D1104 0B300982 07537769 7463682E 301F0603 551D2304 18301680 1401CC17 
+  B195DD9F 69680456 B7B39AAB 44006B9E 65301D06 03551D0E 04160414 01CC17B1 
+  95DD9F69 680456B7 B39AAB44 006B9E65 300D0609 2A864886 F70D0101 04050003 
+  81810011 A95A5714 A9D5B4DF 3A3E6C4E D6BDE293 295C3079 27DE0A0D E48F0FEC 
+  33C9F6BA 625CD7CC 4C830F72 EDA460DE EF03CECA 2F9D6CFF 92876029 CBE45256 
+  65A58DC4 2C2B193C 347243E6 A02A2A63 83754E8C 72D03957 D957A289 20E7D673 
+  8F2BEF8E 87D9BE7C B1FC62E5 4BC946B4 5B103B09 FF9A3417 DB24BDCE 99E19D7D 0DE061
+  quit
 !
 !
 !
 !
 spanning-tree mode pvst
+spanning-tree extend system-id
+spanning-tree vlan 10,20,30,40,50,60,100,110 priority 20480
+spanning-tree vlan 11-19,21-29,31-39,41-49,51-59,61-99,101-109 priority 24576
+!
+vlan internal allocation policy ascending
+!
 !
 class-map match-any PROD
-class-map match-any SERVEUR
-class-map match-any VIDEO
-class-map match-any ADMIN
-class-map match-any PERSO
-class-map match-any GUEST
 class-map match-any HIGH
  match access-group 10
  match access-group 11
@@ -47,17 +72,19 @@ class-map match-any HIGH
 class-map match-any MEDIUM
  match access-group 20
  match access-group name MEDIUM_TRAFFIC
+class-map match-any ADMIN
+class-map match-any SERVEUR
+class-map match-any GUEST
+class-map match-any VIDEO
 class-map match-any LOW
  match access-group 30
  match access-group name LOW_TRAFFIC
+class-map match-any PERSO
+!
 !
 policy-map QOS_POLICY
  class HIGH
-  priority percent 20
  class class-default
-  fair-queue
-!
-!
 !
 !
 !
@@ -65,6 +92,8 @@ interface FastEthernet0/1
  description Link to Router
 !
 interface FastEthernet0/2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
 !
 interface FastEthernet0/3
 !
@@ -85,8 +114,11 @@ interface FastEthernet0/10
 interface FastEthernet0/11
 !
 interface FastEthernet0/12
-!
+!         
 interface FastEthernet0/13
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 1-1005
+ switchport mode trunk
 !
 interface FastEthernet0/14
 !
@@ -105,7 +137,7 @@ interface FastEthernet0/20
 interface FastEthernet0/21
 !
 interface FastEthernet0/22
-!
+!         
 interface FastEthernet0/23
 !
 interface FastEthernet0/24
@@ -119,58 +151,79 @@ interface Vlan1
  shutdown
 !
 interface Vlan10
- mac-address 0001.43b8.4701
- ip address 192.168.10.251 255.255.255.0
+ ip address 192.168.10.252 255.255.255.0
+ standby 10 ip 192.168.10.200
+ standby 10 priority 95
+ standby 10 preempt
 !
 interface Vlan20
- mac-address 0001.43b8.4702
- ip address 192.168.20.251 255.255.255.0
+ ip address 192.168.20.252 255.255.255.0
+ standby 20 ip 192.168.20.200
+ standby 20 priority 95
+ standby 20 preempt
 !
 interface Vlan30
- mac-address 0001.43b8.4703
- ip address 192.168.30.251 255.255.255.0
+ ip address 192.168.30.252 255.255.255.0
+ standby 30 ip 192.168.30.200
+ standby 30 priority 95
+ standby 30 preempt
 !
 interface Vlan40
- mac-address 0001.43b8.4704
- ip address 192.168.40.251 255.255.255.0
+ ip address 192.168.40.252 255.255.255.0
+ standby 40 ip 192.168.40.200
+ standby 40 priority 95
+ standby 40 preempt
 !
 interface Vlan50
- mac-address 0001.43b8.4704
- ip address 192.168.50.251 255.255.255.0
+ ip address 192.168.50.252 255.255.255.0
+ standby 50 ip 192.168.50.200
+ standby 50 priority 105
+ standby 50 preempt
 !
 interface Vlan60
- mac-address 0001.43b8.4704
- ip address 192.168.60.251 255.255.255.0
+ ip address 192.168.60.252 255.255.255.0
+ standby 60 ip 192.168.60.200
+ standby 60 priority 105
+ standby 60 preempt
 !
 ip classless
-!
-ip flow-export version 9
-!
+ip http server
+ip http secure-server
 !
 ip access-list extended HIGH_TRAFFIC
+ permit ip 192.168.10.0 0.0.0.255 any
+ permit ip 192.168.40.0 0.0.0.255 any
+ip access-list extended LOW_TRAFFIC
  permit ip 192.168.30.0 0.0.0.255 any
  permit ip 192.168.50.0 0.0.0.255 any
 ip access-list extended MEDIUM_TRAFFIC
  permit ip 192.168.20.0 0.0.0.255 any
  permit ip 192.168.60.0 0.0.0.255 any
-ip access-list extended LOW_TRAFFIC
- permit ip 192.168.10.0 0.0.0.255 any
- permit ip 192.168.40.0 0.0.0.255 any
-
 !
 !
-!
-!
-!
+vstack
 !
 line con 0
-!
-line aux 0
-!
-line vty 0 4
+line vty 0 2
+ access-class 10 in
+ exec-timeout 5 0
+ login local
+ transport input ssh
+line vty 3
+ access-class 10 in
+ exec-timeout 5 0
+ login local
+ transport preferred none
+ transport input ssh
+ transport output all
+ stopbits 1
+line vty 4
+ access-class 10 in
+ exec-timeout 5 0
+ login local
+ transport input ssh
+ transport output ssh
+line vty 5 15
  login
-!
-!
-!
 !
 end
