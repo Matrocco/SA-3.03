@@ -1,9 +1,9 @@
 Building configuration...
 
   
-Current configuration : 4266 bytes
+Current configuration : 4254 bytes
 !
-! Last configuration change at 14:50:41 UTC Wed Jan 28 2026 by groupe10
+! Last configuration change at 09:48:29 UTC Thu Jan 29 2026
 !
 version 15.8
 service timestamps debug datetime msec
@@ -23,7 +23,7 @@ no aaa new-model
 !
 !
 !
-!
+!         
 !
 !
 !
@@ -66,7 +66,7 @@ ip dhcp pool vlan 50
  default-router 192.168.50.254 
  dns-server 172.18.26.101 
 !
-!         
+!
 !
 no ip domain lookup
 ip domain name entreprise10.local
@@ -92,7 +92,7 @@ redundancy
 !
 controller VDSL 0
 !
-! 
+!         
 !
 !
 !
@@ -138,7 +138,7 @@ interface GigabitEthernet4
  ip virtual-reassembly in
  duplex auto
  speed auto
-!
+!         
 interface Vlan1
  no ip address
 !
@@ -207,7 +207,7 @@ access-list 1 permit 192.168.50.0 0.0.0.255
 access-list 1 permit 192.168.60.0 0.0.0.255
 !
 control-plane
-!
+!         
 !
 line con 0
 line 4
@@ -230,4 +230,4 @@ line vty 4
 !
 scheduler allocate 20000 1000
 !
-end
+end    
