@@ -1,13 +1,6 @@
 version: '3.8'
 
 services:
-  # --- NOUVEAU : Le Registre pour stocker ton image web ---
-  registry:
-    image: registry:2
-    container_name: Registre-WEb
-    restart: always
-    ports:
-      - "5000:5000"
 
   syslog-ng:
     image: balabit/syslog-ng:latest
@@ -77,17 +70,13 @@ services:
         tag: "Serv-Proxy"
     restart: always
   
-  web:
-    build: /web/.
-    image: localhost:5000/web-siege:latest
-    container_name: web-siege
+ web:
+    image: nginx:latest
     ports:
-      - "80:80"
+      - "8000:80"
     volumes:
-      - ./web/index.html:/usr/share/nginx/html/index.html
-    deploy:
-      replicas: 3
-    restart: always
+      - ./html:/usr/share/nginx/html:ro
+      - ./default.conf:/etc/nginx/conf.d/default.conf:ro 
     logging:
       driver: syslog
       options:
