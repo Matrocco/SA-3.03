@@ -168,4 +168,3 @@ line vty 5 15
  transport output ssh
 !
 end
-
