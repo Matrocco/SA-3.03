@@ -138,10 +138,9 @@ interface FastEthernet0/24
  switchport mode access
 !
 interface GigabitEthernet0/1
- switchport trunk allowed vlan 10,20,30,40,50,60
- switchport mode trunk
+shutdown
 !
-interface GigabitEthernet0/2
+interface GigabitEthernet0/4
  switchport trunk allowed vlan 1,2,10,20,30,40,50,60,1000-1005
  switchport mode trunk
 !
