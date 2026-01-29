@@ -15,27 +15,8 @@ services:
     environment:
       - TZ=Europe/Paris # Pour avoir la bonne heure dans les logs
 
-  bind9:
-    image: ubuntu/bind9:latest
-    container_name: bind9-Siege
-    environment:
-      - BIND9_USER=bind
-    ports:
-      - "53:53/udp"
-      - "53:53/tcp"
-    volumes:
-      - ./config:/etc/bind
-      - ./cache:/var/cache/bind
-      - ./records:/var/lib/bind
-    logging:
-      driver: syslog
-      options:
-        syslog-address: "udp://127.0.0.1:514"
-        tag: "Serv-DNS"
-    restart: unless-stopped
-
   tftp-server:
-    image: pghalliday/tftpd
+    image: alpine:latest
     container_name: mon-serveur-tftp
     restart: always
     ports:
