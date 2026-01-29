@@ -41,23 +41,24 @@ services:
         tag: "Serv-DNS"
     restart: unless-stopped
 
-  sftp-server:
-      image: atmoz/sftp
-      container_name: mon-serveur-sftp
-      restart: always
-      ports:
-        # J'ai mis 2222 en externe car le port 22 est souvent déjà pris par ton PC/Serveur pour sa propre gestion
-        - "2222:22"
-      volumes:
-        # Tes fichiers arriveront dans le dossier ./data/upload
-        - ./data:/home/admin/upload
-      # Format de la commande : utilisateur:motdepasse:UID
-      command: admin:progtr00:1001
-      logging:
-        driver: syslog
-        options:
-          syslog-address: "udp://127.0.0.1:514"
-          tag: "Serv-SFTP"
+  tftp-server:
+    image: pghalliday/tftpd
+    container_name: mon-serveur-tftp
+    restart: always
+    ports:
+      # Le TFTP utilise le port 69 en UDP (Standard)
+      # Important : Ne changez pas le port externe 69, sinon le switch ne trouvera pas le serveur.
+      - "69:69/udp"
+    volumes:
+      # On garde votre dossier local "./data" pour récupérer les fichiers
+      # Dans le conteneur, le dossier standard TFTP est /var/tftpboot
+      - ./data:/var/tftpboot
+    # En TFTP, il n'y a PAS de commande user/password
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "udp://127.0.0.1:514"
+        tag: "Serv-TFTP"
 
   squid:
     image: ubuntu/squid:latest
