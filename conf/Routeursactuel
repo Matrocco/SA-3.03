@@ -111,8 +111,8 @@ interface Tunnel1
  ip address 172.16.1.2 255.255.255.252
  ip mtu 1400
  ip tcp adjust-mss 1360
- tunnel source 10.4.1.1
- tunnel destination 10.4.2.1
+ tunnel source 10.4.2.1
+ tunnel destination 10.4.1.1
 
 !
 interface ATM0
