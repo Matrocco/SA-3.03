@@ -133,3 +133,6 @@ Le projet se déroule en plusieurs phases chronologiques :
 
 *  **Rendu final & Aide aux RT1** : 4 points (2 + 2).
 
+
+
+#Note finale : 16,5
