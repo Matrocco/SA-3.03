@@ -135,4 +135,4 @@ Le projet se déroule en plusieurs phases chronologiques :
 
 
 
-#Note finale : 16,5
+# Note finale : 16,5
